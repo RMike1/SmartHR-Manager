@@ -19,7 +19,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        return Inertia::render(component: 'Dashboard');
     })->name('dashboard');
     Route::get('/admin-dashboard', function () {
         return Inertia::render('Admin/Home-page');
