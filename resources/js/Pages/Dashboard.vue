@@ -1,13 +1,15 @@
 <script setup>
-import MainLayout from '@/Layouts/MainLayout.vue';
+import Layout from '@/Layouts/MainLayout.vue';
 import {Head} from '@inertiajs/vue3'
 import '/public/admin/assets/bundles/apexcharts.bundle.js';
+defineOptions({
+      layout:Layout
+})
 </script>
 <template>
       <Head>
             <title>Home</title>
       </Head>
-      <MainLayout>
             <div class="body d-flex py-3">
                   <div class="container-xxl">
                         <div class="row clearfix g-3">
@@ -444,5 +446,4 @@ import '/public/admin/assets/bundles/apexcharts.bundle.js';
                         </div><!-- Row End -->
                   </div>
             </div>
-      </MainLayout>
 </template>

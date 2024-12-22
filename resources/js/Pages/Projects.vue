@@ -1,12 +1,14 @@
 <script setup>
-import MainLayout from '@/Layouts/MainLayout.vue';
+import Layout from '@/Layouts/MainLayout.vue';
 import { Head } from '@inertiajs/vue3';
+defineOptions({
+      layout:Layout
+});
 </script>
 <template>
       <Head>
             <title>Projects</title>
       </Head>
-      <MainLayout>
             <div class="body d-flex py-lg-3 py-md-2">
                   <div class="container-xxl">
                         <div class="row align-items-center">
@@ -3799,5 +3801,4 @@ import { Head } from '@inertiajs/vue3';
                         </div>
                   </div>
             </div>
-      </MainLayout>
 </template>

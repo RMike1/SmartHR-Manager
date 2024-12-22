@@ -1,5 +1,7 @@
 <script setup>
-import { router } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { router, usePage } from '@inertiajs/vue3';
+const user=computed(()=>usePage().props.auth.user);
 const logout = () => {
     router.post(route('logout'));
 };
@@ -49,8 +51,7 @@ const logout = () => {
                                                         src="admin/assets/images/xs/avatar1.jpg" alt="">
                                                     <div class="flex-fill ms-2">
                                                         <p class="d-flex justify-content-between mb-0 ">
-                                                            <span class="font-weight-bold">Dylan
-                                                                Hunter</span>
+                                                            <span class="font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span>
                                                             <small>2MIN</small>
                                                         </p>
                                                         <span class="">Added 2021-02-19 my-Task ui/ux Design
@@ -140,8 +141,7 @@ const logout = () => {
                     </div>
                     <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
                         <div class="u-info me-2">
-                            <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">Dylan
-                                    Hunter</span></p>
+                            <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span></p>
                             <small>Admin Profile</small>
                         </div>
                         <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown"
@@ -157,10 +157,9 @@ const logout = () => {
                                         <img class="avatar rounded-circle" src="admin/assets/images/profile_av.png"
                                             alt="profile">
                                         <div class="flex-fill ms-3">
-                                            <p class="mb-0"><span class="font-weight-bold">Dylan
-                                                    Hunter</span>
+                                            <p class="mb-0"><span class="font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span>
                                             </p>
-                                            <small class="">Dylan.hunter@gmail.com</small>
+                                            <small class="">{{ user.email }}</small>
                                         </div>
                                     </div>
 
