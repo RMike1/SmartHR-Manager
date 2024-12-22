@@ -61,6 +61,25 @@ $(function() {
             $('.table-responsive').css( "overflow", "auto" );
     })
 
+    // main theme color setting js
+    $('.choose-skin li').on('click', function () {
+        const $body = $('body');
+        const $this = $(this);
+        const existTheme = $('.choose-skin li.active').data('theme');
+        $('.choose-skin li').removeClass('active');
+        $this.addClass('active');
+        $body.attr('data-mytask', 'theme-' + $this.data('theme'));
+    });
+
+    // Monochrome Mode
+    $('.monochrome-toggle input:checkbox').on('click', function () {
+        if ($(this).is(":checked")) {
+            $('body').addClass("monochrome");
+        } else {
+            $('body').removeClass("monochrome");
+        }
+    });
+
     // light and dark theme setting js
     var toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
     var toggleHcSwitch = document.querySelector('.theme-high-contrast input[type="checkbox"]');
@@ -71,10 +90,10 @@ $(function() {
         if (currentTheme === 'dark') {
             toggleSwitch.checked = true;
         }
-        // if (currentTheme === 'high-contrast') {
-        //     toggleHcSwitch.checked = true;
-        //     toggleSwitch.checked = false;
-        // }
+        if (currentTheme === 'high-contrast') {
+            toggleHcSwitch.checked = true;
+            toggleSwitch.checked = false;
+        }
     }
     function switchTheme(e) {
         if (e.target.checked) {
