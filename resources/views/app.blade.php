@@ -18,6 +18,6 @@
         {{-- <script src="{{asset('admin/assets/bundles/apexcharts.bundle.js')}}"></script> --}}
         <!-- Jquery Page Js -->
         <script src="{{asset('admin/js/template.js')}}"></script>
-        <script src="{{asset('admin/js/page/hr.j')}}s"></script>
+        {{-- <script src="{{asset('admin/js/page/hr.js')}}"></script> --}}
     </body>
 </html>

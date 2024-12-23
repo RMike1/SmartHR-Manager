@@ -176,4 +176,3 @@ $(function() {
         chart.render();
     });
 });
-

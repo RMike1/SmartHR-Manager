@@ -2,6 +2,8 @@
 import Layout from '@/Layouts/MainLayout.vue';
 import {Head} from '@inertiajs/vue3'
 import '/public/admin/assets/bundles/apexcharts.bundle.js';
+import '/public/admin/js/page/hr.js';
+
 defineOptions({
       layout:Layout
 })
