@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\JobTitle;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         Department::factory(3)->create();
         Category::factory(10)->create();
+        JobTitle::factory(10)->create();
         User::factory()->create([
             'first_name' => 'Jon',
             'last_name' => 'Snow',
