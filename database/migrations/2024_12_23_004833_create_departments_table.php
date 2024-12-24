@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('departments', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('category_name')->nullable();
+            $table->string('department_name')->nullable();
+            $table->foreignUlid('employee_id')->nullable()->constrained()->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('departments');
     }
 };
