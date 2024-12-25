@@ -19,26 +19,40 @@ import {Link} from '@inertiajs/vue3';
             </Link>
             <ul class="menu-list flex-grow-1 mt-3">
                 <li class="collapsed">
-                    <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#dashboard-Components" href="#">
+                    <a class="m-link":class="{'active': $page.url==='/dashboard'}" data-bs-toggle="collapse" data-bs-target="#dashboard-Components" href="#">
                         <i class="icofont-home fs-5"></i> <span>Dashboard</span> <span
                             class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse show" id="dashboard-Components">
-                        <li><a class="ms-link active" href="index.html"> <span>Hr Dashboard</span></a></li>
-                        <li><a class="ms-link" href="project-dashboard.html"> <span>Project Dashboard</span></a>
+                        <li>
+                            <Link class="ms-link" :class="{'active': $page.url==='/dashboard'}" :href="route('dashboard')"> <span>Hr Dashboard</span></Link>
                         </li>
                     </ul>
                 </li>
                 <li class="collapsed">
-                    <a class="m-link" data-bs-toggle="collapse" data-bs-target="#project-Components" href="#">
+                    <a class="m-link" :class="{'active': $page.url==='/projects'}"  data-bs-toggle="collapse" data-bs-target="#project-Components" href="#">
                         <i class="icofont-briefcase"></i><span>Projects</span> <span
                             class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="project-Components">
-                        <li><Link class="ms-link" :href="route('projects')"><span>Projects</span></Link></li>
+                        <li><Link class="ms-link" :class="{'active': $page.url==='/projects'}" :href="route('projects')"><span>Projects</span></Link></li>
                         <!-- <li><a class="ms-link" href="task.html"><span>Tasks</span></a></li>
                         <li><a class="ms-link" href="timesheet.html"><span>Timesheet</span></a></li>
                         <li><a class="ms-link" href="team-leader.html"><span>Leaders</span></a></li> -->
+                    </ul>
+                </li>
+                <li class="collapsed">
+                    <a class="m-link" :class="{'active':$page.url==='/employess'}" data-bs-toggle="collapse" data-bs-target="#emp-Components" href="#"><i
+                            class="icofont-users-alt-5"></i> <span>Employees</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                    <!-- Menu: Sub menu ul -->
+                    <ul class="sub-menu collapse show" id="emp-Components">
+                        <li><a class="ms-link" :class="{'active':$page.url==='/employees'}"> <span>Members</span></a></li>
+                        <!-- <li><a class="ms-link" href="employee-profile.html"> <span>Members Profile</span></a></li>
+                        <li><a class="ms-link" href="holidays.html"> <span>Holidays</span></a></li>
+                        <li><a class="ms-link" href="attendance-employees.html"> <span>Attendance Employees</span></a></li>
+                        <li><a class="ms-link" href="attendance.html"> <span>Attendance</span></a></li>
+                        <li><a class="ms-link" href="leave-request.html"> <span>Leave Request</span></a></li>
+                        <li><a class="ms-link" href="department.html"> <span>Department</span></a></li> -->
                     </ul>
                 </li>
             </ul>
