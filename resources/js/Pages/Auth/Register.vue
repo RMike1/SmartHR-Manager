@@ -41,7 +41,7 @@ const submit = () => {
                     </div>
                     <div class="col-6">
                         <div class="mb-2">
-                            <label class="form-label">Full name</label>
+                            <label class="form-label">First name</label>
                             <TextInput id="name" v-model="form.first_name" type="text" required autofocus
                                 autocomplete="name" placeholder="First name.." />
                             <InputError class="mt-2" :message="form.errors.first_name" />
@@ -49,7 +49,7 @@ const submit = () => {
                     </div>
                     <div class="col-6">
                         <div class="mb-2">
-                            <label class="form-label">&nbsp;</label>
+                            <label class="form-label">Second name</label>
                             <TextInput id="name" v-model="form.last_name" type="text" required autofocus
                                 autocomplete="name" placeholder="Last name.." />
                             <InputError class="mt-2" :message="form.errors.last_name" />

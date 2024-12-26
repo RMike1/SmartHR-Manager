@@ -13,8 +13,8 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
-        <script src="{{asset('admin/assets/bundles/libscripts.bundle.js')}}"></script>
         <!-- Plugin Js-->
+        <script src="{{asset('admin/assets/bundles/libscripts.bundle.js')}}"></script>
         {{-- <script src="{{asset('admin/assets/bundles/apexcharts.bundle.js')}}"></script> --}}
         <!-- Jquery Page Js -->
         <script src="{{asset('admin/js/template.js')}}"></script>
