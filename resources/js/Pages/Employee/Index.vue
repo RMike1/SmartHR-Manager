@@ -33,7 +33,7 @@ const form = useForm({
 const submit = () => {
       form.post(route('save.employee'), {
             // forceFormData:true,
-            onFinish: () => form.reset()
+            onSuccess: () => form.reset()
       });
 };
 </script>
