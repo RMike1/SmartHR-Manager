@@ -11,7 +11,8 @@
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased">
+    {{-- <body class="font-sans antialiased"> --}}
+    <body class="modal-open" style="overflow: hidden; padding-right: 0px;">
         @inertia
         <!-- Plugin Js-->
         <script src="{{asset('admin/assets/bundles/libscripts.bundle.js')}}"></script>

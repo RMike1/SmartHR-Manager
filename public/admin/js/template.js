@@ -70,7 +70,10 @@ $(function() {
     
         if (currentTheme === 'dark') {
             toggleSwitch.checked = true;
+        }else{
+            toggleSwitch.checked = false;
         }
+
         // if (currentTheme === 'high-contrast') {
         //     toggleHcSwitch.checked = true;
         //     toggleSwitch.checked = false;
@@ -99,7 +102,7 @@ s1.async=true;
 s1.src='https://embed.tawk.to/6051a040f7ce18270930e55a/1f3d4os21';
 s1.charset='UTF-8';
 s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
+
 })();
 
 
