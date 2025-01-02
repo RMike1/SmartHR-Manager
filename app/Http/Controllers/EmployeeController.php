@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
@@ -24,5 +23,13 @@ class EmployeeController extends Controller
     public function saveEmployee(StoreEmployeeRequest $request){
         $validated=$request->validated();
         Employee::create($validated);
+    }
+    public function storeEmployee(){
+        // $validated=$request->validated();
+        // Employee::create($validated);
+        return inertia()->modal('Modals/StoreEmployeeModal',[
+            'showModal' => true,
+        ])
+            ->baseRoute('employee');
     }
 }
