@@ -62,37 +62,39 @@ $(function() {
     })
 
     // light and dark theme setting js
-    var toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-    var toggleHcSwitch = document.querySelector('.theme-high-contrast input[type="checkbox"]');
+var toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+var toggleHcSwitch = document.querySelector('.theme-high-contrast input[type="checkbox"]');
+
+// Check if the toggleSwitch element exists before accessing or modifying it
+if (toggleSwitch) {
     var currentTheme = localStorage.getItem('theme');
     if (currentTheme) {
         document.documentElement.setAttribute('data-theme', currentTheme);
-    
+
         if (currentTheme === 'dark') {
             toggleSwitch.checked = true;
-        }else{
+        } else {
             toggleSwitch.checked = false;
         }
-
-        // if (currentTheme === 'high-contrast') {
-        //     toggleHcSwitch.checked = true;
-        //     toggleSwitch.checked = false;
-        // }
     }
+
     function switchTheme(e) {
         if (e.target.checked) {
             document.documentElement.setAttribute('data-theme', 'dark');
             localStorage.setItem('theme', 'dark');
-            $('.theme-high-contrast input[type="checkbox"]').prop("checked", false);
-        }
-        else {        
+            if (toggleHcSwitch) {
+                toggleHcSwitch.checked = false;
+            }
+        } else {
             document.documentElement.setAttribute('data-theme', 'light');
             localStorage.setItem('theme', 'light');
-        }    
+        }
     }
+
+    // Add the event listener only if toggleSwitch exists
     toggleSwitch.addEventListener('change', switchTheme, false);
-    // end
-});
+}
+
 
 // live support team js
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -102,10 +104,5 @@ s1.async=true;
 s1.src='https://embed.tawk.to/6051a040f7ce18270930e55a/1f3d4os21';
 s1.charset='UTF-8';
 s1.setAttribute('crossorigin','*');
-
+s0.parentNode.insertBefore(s1,s0);
 })();
-
-
-
-
- 

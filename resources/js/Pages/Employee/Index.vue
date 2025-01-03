@@ -16,6 +16,7 @@ defineOptions({
 defineProps({
       'departments': Array,
       'jobtitles': Array,
+      'employees': Array,
 });
 
 const form = useForm({
@@ -32,13 +33,8 @@ const form = useForm({
       'job_title_id': '',
       'joining_date': '',
 });
-const submit = () => {
-      form.post(route('save.employee'), {
-            // forceFormData:true,
-            onSuccess: () => form.reset()
-      });
-};
 const showModal = ref(false);
+//const editMode = ref(false);
 
 const openModal = () => {
   showModal.value = true;
@@ -47,9 +43,19 @@ const openModal = () => {
 const closeModal = () => {
   showModal.value = false;
 };
+const submit = () => {
+      form.post(route('save.employee'), {
+            // forceFormData:true,
+            onSuccess: () => {
+                  form.reset(); // Reset the form fields
+                  closeModal(); // Close the modal
+            },
+         
+      });
+};
+
 </script>
 <template>
-
       <Head>
             <title>Projects</title>
       </Head>
@@ -68,7 +74,6 @@ const closeModal = () => {
                                           <!-- <Link class="btn btn-dark me-1 mt-1 w-sm-100" type="button" :href="route('employee.create')" preserve-state>
                                                 <i class="icofont-plus-circle me-2 fs-6"></i>Add Employee
                                           </Link> -->
-                                          
 
                                           <a class="btn btn-dark me-1 mt-1 w-sm-100" @click.prevent="openModal">
                                                       <i class="icofont-plus-circle me-2 fs-6"></i>Add Employee
@@ -91,9 +96,8 @@ const closeModal = () => {
                               </div>
                         </div>
                   </div><!-- Row End -->
-                  <div
-                        class="row g-3 row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 row-deck py-1 pb-4">
-                        <div class="col">
+                  <div class="row g-3 row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 row-deck py-1 pb-4">
+                        <div class="col" v-for="(employee, index) in employees" :key="index">
                               <div class="card teacher-card">
                                     <div class="card-body d-flex">
                                           <div class="profile-av pe-xl-4 pe-md-2 pe-sm-4 pe-4 text-center w220">
@@ -116,21 +120,24 @@ const closeModal = () => {
                                                 </div>
                                           </div>
                                           <div class="teacher-info border-start ps-xl-4 ps-md-3 ps-sm-4 ps-4 w-100">
-                                                <h6 class="mb-0 mt-2  fw-bold d-block fs-6">Luke Short</h6>
+                                                <h6 class="mb-0 mt-2  fw-bold d-block fs-6">{{ employee.employee_first_name }} {{ employee.employee_second_name }}</h6>
                                                 <span
-                                                      class="light-info-bg py-1 px-2 rounded-1 d-inline-block fw-bold small-11 mb-0 mt-1">UI/UX
-                                                      Designer</span>
+                                                      class="light-info-bg py-1 px-2 rounded-1 d-inline-block fw-bold small-11 mb-0 mt-1">{{ employee.jobtitle.job_title_name }}</span>
                                                 <div class="video-setting-icon mt-3 pt-3 border-top">
-                                                      <p>Vestibulum ante ipsum primis in faucibus orci luctus et
-                                                            ultrices.Vestibulum ante ipsum primis in faucibus orci
-                                                            luctus et ultrices</p>
+                                                      <p>{{ employee.employee_description }}</p>
                                                 </div>
-                                                <a href="task.html" class="btn btn-dark me-1 btn-sm mt-1"><i
-                                                            class="icofont-plus-circle me-2 fs-6"></i>Add Task</a>
+                                                <button href="task.html" class="btn btn-dark me-1 btn-sm mt-1">
+                                                      <i class="icofont-plus-circle me-2 fs-6"></i>
+                                                      Add Task</button>
                                                 <!-- <a href="task.html" class="btn btn-dark me-1 btn-sm mt-1"><i class="icofont-plus-circle me-2 fs-6"></i>First Task</a> -->
-                                                <a href="employee-profile.html" class="btn btn-dark btn-sm mt-1"><i
-                                                            class="icofont-invisible me-2 fs-6"></i>Profile</a>
+                                                <a href="employee-profile.html" class="btn btn-dark btn-sm mt-1">
+                                                <i class="icofont-invisible me-2 fs-6"></i>
+                                                            Profile</a>
                                           </div>
+                                          <div> 
+                                          <button class="btn btn-dark me-1 btn-sm mt-1" title="Edit Employee">
+                                                      <i class="icofont-edit fs-6"></i></button>
+                                         </div>
                                     </div>
                               </div>
                         </div>
@@ -320,17 +327,15 @@ const closeModal = () => {
       </div>
 
       <!-- Create Employee-->
-      <!-- <transition name="fade"> -->
-      <transition name="fade">
-            <form @submit.prevent="submit">
+      <form @submit.prevent="submit">
+                  <transition name="slide-down">
                   <div class="modal fade"  v-if="showModal" 
                         :class="{ show: showModal }" :style="{ display: showModal ? 'block' : 'none' }">
                         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                               <div class="modal-content">
                                     <div class="modal-header">
                                           <h5 class="modal-title  fw-bold" id="createprojectlLabel"> Add Employee</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                                          <button type="button" class="btn-close" @click="closeModal"></button>
                                     </div>
                                     <div class="modal-body">
                                           <div class="deadline-form">
@@ -456,7 +461,7 @@ const closeModal = () => {
                                     <div class="modal-footer">
                                           <!-- <button type="button" class="btn btn-secondary"
                                           data-bs-dismiss="modal">Done</button> -->
-                                          <SecondaryButton data-bs-dismiss="modal" @click="form.cancel">
+                                          <SecondaryButton @click="closeModal">
                                                 Cancel
                                           </SecondaryButton>
                                           <PrimaryButton class="btn btn-primary"
@@ -468,7 +473,20 @@ const closeModal = () => {
                               </div>
                         </div>
                   </div>
+                  </transition>
             </form>
-      </transition>
       <div class="modal-backdrop fade show" v-if="showModal"></div>
 </template>
+<style scoped>
+.slide-down-enter-active, .slide-down-leave-active {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.slide-down-enter-from, .slide-down-leave-to {
+  transform: translateY(-30px);
+  opacity: 0;
+}
+.slide-down-enter-to, .slide-down-leave-from {
+  transform: translateY(0);
+  opacity: 1;
+}
+</style>
