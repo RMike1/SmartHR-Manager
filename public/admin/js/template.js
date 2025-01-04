@@ -62,39 +62,34 @@ $(function() {
     })
 
     // light and dark theme setting js
-var toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-var toggleHcSwitch = document.querySelector('.theme-high-contrast input[type="checkbox"]');
-
-// Check if the toggleSwitch element exists before accessing or modifying it
-if (toggleSwitch) {
+    var toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+    var toggleHcSwitch = document.querySelector('.theme-high-contrast input[type="checkbox"]');
     var currentTheme = localStorage.getItem('theme');
     if (currentTheme) {
         document.documentElement.setAttribute('data-theme', currentTheme);
-
+    
         if (currentTheme === 'dark') {
             toggleSwitch.checked = true;
-        } else {
-            toggleSwitch.checked = false;
         }
+        // if (currentTheme === 'high-contrast') {
+        //     toggleHcSwitch.checked = true;
+        //     toggleSwitch.checked = false;
+        // }
     }
-
     function switchTheme(e) {
         if (e.target.checked) {
             document.documentElement.setAttribute('data-theme', 'dark');
             localStorage.setItem('theme', 'dark');
-            if (toggleHcSwitch) {
-                toggleHcSwitch.checked = false;
-            }
-        } else {
+            $('.theme-high-contrast input[type="checkbox"]').prop("checked", false);
+        }
+        else {        
             document.documentElement.setAttribute('data-theme', 'light');
             localStorage.setItem('theme', 'light');
-        }
+        }    
     }
-
-    // Add the event listener only if toggleSwitch exists
     toggleSwitch.addEventListener('change', switchTheme, false);
-}
-
+    // end
+});
 
 // live support team js
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();

@@ -28,6 +28,9 @@ Route::middleware([
     Route::get('/employee',[EmployeeController::class,'index'])->name('employee');
     Route::post('/create/employee',[EmployeeController::class,'saveEmployee'])->name('save.employee');
     Route::get('/employee/create',[EmployeeController::class,'storeEmployee'])->name('employee.create');
+    Route::get('/employee/edit/{id}',[EmployeeController::class,'editEmployee'])->name('employee.edit');
+    Route::put('/employee/update',[EmployeeController::class,'updateEmployee'])->name('update.employee');
+    Route::delete('/employee/delete/{id}',[EmployeeController::class,'deleteEmployee'])->name('employee.delete');
 });
 
 

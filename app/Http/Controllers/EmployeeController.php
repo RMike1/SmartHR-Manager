@@ -22,7 +22,15 @@ class EmployeeController extends Controller
     }
     public function saveEmployee(StoreEmployeeRequest $request){
         $validated=$request->validated();
+        if($request->hasFile('employee_image')){
+            $request->file('employee_image')->store('employees');
+        }
         Employee::create($validated);
+    }
+    public function updateEmployee(StoreEmployeeRequest $request){
+        $validated=$request->validated();
+        $id=$request['id'];
+        Employee::findOrFail($id)->update($validated);
     }
     public function storeEmployee(){
         // $validated=$request->validated();
@@ -31,5 +39,14 @@ class EmployeeController extends Controller
             'showModal' => true,
         ])
             ->baseRoute('employee');
+    }
+    public function editEmployee(Employee $id){
+        return Inertia::render('Employee/Index',[
+            'selectedEmployee'=>$id,
+        ]);
+    }
+    public function deleteEmployee($id){
+        Employee::find($id)->delete();
+        return to_route('employee');
     }
 }
