@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\JobTitle;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreEmployeeRequest;
 
 class EmployeeController extends Controller
@@ -21,15 +22,21 @@ class EmployeeController extends Controller
         ]);
     }
     public function saveEmployee(StoreEmployeeRequest $request){
+        // dd($request);
         $validated=$request->validated();
         if($request->hasFile('employee_image')){
-            $request->file('employee_image')->store('employees');
+            $validated['employee_image']=Storage::disk('public')->put('employees', $request->employee_image);
         }
         Employee::create($validated);
     }
     public function updateEmployee(StoreEmployeeRequest $request){
         $validated=$request->validated();
         $id=$request['id'];
+        // dd($request);
+        if($request->file('employee_image')){
+            $request->file('employee_image')->store('employees');
+            
+        }
         Employee::findOrFail($id)->update($validated);
     }
     public function storeEmployee(){

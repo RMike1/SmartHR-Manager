@@ -59,13 +59,18 @@ const openModal = (emp) => {
             form.joining_date = selectedEmployee.value.joining_date || '';
             form.id = selectedEmployee.value.id;
             form.is_leader = selectedEmployee.value.is_leader ? true : false;
-            form.employee_image = '';
+            form.employee_image = selectedEmployee.value.employee_image || null ;
       } else {
             form.reset();
             showModal.value = true;
             editMode.value = 'create';
       }
 };
+
+const change = (e) =>{
+      form.employee_image=e.target.files[0];
+      form.preview=URL.createObjectURL(e.target.files[0]);
+}
 
 const closeModal = () => {
       showModal.value = false;
@@ -111,7 +116,7 @@ const update = () => {
                                           <h3 class=" fw-bold flex-fill mb-0 mt-sm-0">Employee</h3>
 
                                           <a class="btn btn-dark me-1 mt-1 w-sm-100" @click.prevent="openModal">
-                                                <i class="icofont-plus-circle me-2 fs-6"></i>{{ modalTitle }}
+                                                <i class="icofont-plus-circle me-2 fs-6"></i>Add Employee
                                           </a>
 
                                           <div class="dropdown">
@@ -137,8 +142,7 @@ const update = () => {
                               <div class="card teacher-card">
                                     <div class="card-body d-flex">
                                           <div class="profile-av pe-xl-4 pe-md-2 pe-sm-4 pe-4 text-center w220">
-                                                <img src="admin/assets/images/lg/avatar3.jpg" alt=""
-                                                      class="avatar xl rounded-circle img-thumbnail shadow-sm">
+                                          <img :src="employee.employee_image ? ('storage/' + employee.employee_image) : ('storage/avatars/default.jpg')" class="avatar xl rounded-circle img-thumbnail shadow-sm"/>
 
                                                 <!-- <div v-if="selectedEmployee?.employee_image">
                                                       <img :src="`/storage/${selectedEmployee.employee_image}`" alt="Employee Image" class="img-thumbnail" />
@@ -490,11 +494,12 @@ const update = () => {
                                           </div>
                                           <div class="mb-3">
                                                 <InputLabel for="employee_image" value="Employee Image" />
-                                                <TextInput type="file" v-model="form.employee_image" id="employee_image" accept="image/*"/>
-                                                <!-- <input  @input="form.employee_image=$event.target.files[0]" type="file"> -->
+                                                <TextInput type="file" id="employee_image" accept="image/*" @input="change"/>
+                                                <img type="file" :src="form.preview ?? form.preview" style="width: 50px; height: auto;"/>
+                                                <img :src="form.employee_image ? 'storage/' + form.employee_image : 'storage/default.jpg'" style="height: auto; width: 50px;" alt="">
                                                 <!-- <progress v-if="form.progress" :value="form.progress.percentage" max="100">
-                                                {{ form.progress.percentage }}%
-                                          </progress> -->
+                                                      {{ form.progress.percentage }}%
+                                                </progress> -->
                                                 <InputError class="mt-2" :message="form.errors.employee_image" />
                                           </div>
                                           <div class="mb-3">
