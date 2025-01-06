@@ -1,9 +1,20 @@
 <script setup>
+import { ref } from 'vue';
 import Layout from '@/Layouts/MainLayout.vue';
 import { Head } from '@inertiajs/vue3';
 defineOptions({
       layout: Layout
 });
+const props = defineProps({
+});
+const showCreateProjectModal = ref(false);
+const createProject = () => {
+      showCreateProjectModal.value = true;
+}
+const closeModal = () => {
+      showCreateProjectModal.value = false;
+}
+
 </script>
 <template>
 
@@ -18,10 +29,11 @@ defineOptions({
                                     class="card-header p-0 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
                                     <h3 class="fw-bold py-3 mb-0">Projects</h3>
                                     <div class="d-flex py-2 project-tab flex-wrap w-sm-100">
-                                          <button type="button" class="btn btn-dark w-sm-100" data-bs-toggle="modal"
-                                                data-bs-target="#createproject"><i
-                                                      class="icofont-plus-circle me-2 fs-6"></i>Create
-                                                Project</button>
+
+                                          <button type="button" class="btn btn-dark w-sm-100"
+                                                @click.prevent="createProject">
+                                                <i class="icofont-plus-circle me-2 fs-6"></i>Create Project</button>
+
                                           <ul class="nav nav-tabs tab-body-header rounded ms-3 prtab-set w-sm-100"
                                                 role="tablist">
                                                 <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab"
@@ -516,110 +528,128 @@ defineOptions({
       </div>
 
       <!-- Create Project-->
-      <div class="modal fade" id="createproject" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
-                  <div class="modal-content">
-                        <div class="modal-header">
-                              <h5 class="modal-title  fw-bold" id="createprojectlLabel"> Create Project</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                              <div class="mb-3">
-                                    <label for="exampleFormControlInput77" class="form-label">Project Name</label>
-                                    <input type="text" class="form-control" id="exampleFormControlInput77"
-                                          placeholder="Explain what the Project Name">
-                              </div>
-                              <div class="mb-3">
-                                    <label class="form-label">Project Category</label>
-                                    <select class="form-select" aria-label="Default select Project Category">
-                                          <option selected>UI/UX Design</option>
-                                          <option value="1">Website Design</option>
-                                          <option value="2">App Development</option>
-                                          <option value="3">Quality Assurance</option>
-                                          <option value="4">Development</option>
-                                          <option value="5">Backend Development</option>
-                                          <option value="6">Software Testing</option>
-                                          <option value="7">Website Design</option>
-                                          <option value="8">Marketing</option>
-                                          <option value="9">SEO</option>
-                                          <option value="10">Other</option>
-                                    </select>
-                              </div>
-                              <div class="mb-3">
-                                    <label for="formFileMultipleone" class="form-label">Project Images &
-                                          Document</label>
-                                    <input class="form-control" type="file" id="formFileMultipleone" multiple>
-                              </div>
-                              <div class="deadline-form">
-                                    <form>
-                                          <div class="row g-3 mb-3">
-                                                <div class="col">
-                                                      <label for="datepickerded" class="form-label">Project Start
-                                                            Date</label>
-                                                      <input type="date" class="form-control" id="datepickerded">
-                                                </div>
-                                                <div class="col">
-                                                      <label for="datepickerdedone" class="form-label">Project End
-                                                            Date</label>
-                                                      <input type="date" class="form-control" id="datepickerdedone">
-                                                </div>
+      <form>
+            <transition name="slide-down">
+                  <div class="modal fade" tabindex="-1" v-if="showCreateProjectModal"
+                        :class="{ show: showCreateProjectModal }"
+                        :style="{ display: showCreateProjectModal ? 'block' : 'none' }">
+                        <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                              <div class="modal-content">
+                                    <div class="modal-header">
+                                          <h5 class="modal-title  fw-bold" id="createprojectlLabel"> Create Project</h5>
+
+                                          <button type="button" class="btn-close" @click="closeModal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                          <div class="mb-3">
+                                                <label for="exampleFormControlInput77" class="form-label">Project
+                                                      Name</label>
+                                                <input type="text" class="form-control" id="exampleFormControlInput77"
+                                                      placeholder="Explain what the Project Name">
+                                          </div>
+                                          <div class="mb-3">
+                                                <label class="form-label">Project Category</label>
+                                                <select class="form-select"
+                                                      aria-label="Default select Project Category">
+                                                      <option selected>UI/UX Design</option>
+                                                      <option value="1">Website Design</option>
+                                                      <option value="2">App Development</option>
+                                                      <option value="3">Quality Assurance</option>
+                                                      <option value="4">Development</option>
+                                                      <option value="5">Backend Development</option>
+                                                      <option value="6">Software Testing</option>
+                                                      <option value="7">Website Design</option>
+                                                      <option value="8">Marketing</option>
+                                                      <option value="9">SEO</option>
+                                                      <option value="10">Other</option>
+                                                </select>
+                                          </div>
+                                          <div class="mb-3">
+                                                <label for="formFileMultipleone" class="form-label">Project Images &
+                                                      Document</label>
+                                                <input class="form-control" type="file" id="formFileMultipleone"
+                                                      multiple>
+                                          </div>
+                                          <div class="deadline-form">
+                                                <form>
+                                                      <div class="row g-3 mb-3">
+                                                            <div class="col">
+                                                                  <label for="datepickerded" class="form-label">Project
+                                                                        Start
+                                                                        Date</label>
+                                                                  <input type="date" class="form-control"
+                                                                        id="datepickerded">
+                                                            </div>
+                                                            <div class="col">
+                                                                  <label for="datepickerdedone"
+                                                                        class="form-label">Project End
+                                                                        Date</label>
+                                                                  <input type="date" class="form-control"
+                                                                        id="datepickerdedone">
+                                                            </div>
+                                                      </div>
+                                                      <div class="row g-3 mb-3">
+                                                            <div class="col-sm-12">
+                                                                  <label class="form-label">Notifation Sent</label>
+                                                                  <select class="form-select"
+                                                                        aria-label="Default select example">
+                                                                        <option selected>All</option>
+                                                                        <option value="1">Team Leader Only</option>
+                                                                        <option value="2">Team Member Only</option>
+                                                                  </select>
+                                                            </div>
+                                                            <div class="col-sm-12">
+                                                                  <label for="formFileMultipleone"
+                                                                        class="form-label">Task
+                                                                        Assign Person</label>
+                                                                  <select class="form-select" multiple
+                                                                        aria-label="Default select Priority">
+                                                                        <option selected>Lucinda Massey</option>
+                                                                        <option value="1">Ryan Nolan</option>
+                                                                        <option value="2">Oliver Black</option>
+                                                                        <option value="3">Adam Walker</option>
+                                                                        <option value="4">Brian Skinner</option>
+                                                                        <option value="5">Dan Short</option>
+                                                                        <option value="5">Jack Glover</option>
+                                                                  </select>
+                                                            </div>
+                                                      </div>
+                                                </form>
                                           </div>
                                           <div class="row g-3 mb-3">
-                                                <div class="col-sm-12">
-                                                      <label class="form-label">Notifation Sent</label>
-                                                      <select class="form-select" aria-label="Default select example">
-                                                            <option selected>All</option>
-                                                            <option value="1">Team Leader Only</option>
-                                                            <option value="2">Team Member Only</option>
-                                                      </select>
+                                                <div class="col-sm">
+                                                      <label for="formFileMultipleone" class="form-label">Budget</label>
+                                                      <input type="number" class="form-control">
                                                 </div>
-                                                <div class="col-sm-12">
-                                                      <label for="formFileMultipleone" class="form-label">Task
-                                                            Assign Person</label>
-                                                      <select class="form-select" multiple
-                                                            aria-label="Default select Priority">
-                                                            <option selected>Lucinda Massey</option>
-                                                            <option value="1">Ryan Nolan</option>
-                                                            <option value="2">Oliver Black</option>
-                                                            <option value="3">Adam Walker</option>
-                                                            <option value="4">Brian Skinner</option>
-                                                            <option value="5">Dan Short</option>
-                                                            <option value="5">Jack Glover</option>
+                                                <div class="col-sm">
+                                                      <label for="formFileMultipleone"
+                                                            class="form-label">Priority</label>
+                                                      <select class="form-select" aria-label="Default select Priority">
+                                                            <option selected>Highest</option>
+                                                            <option value="1">Medium</option>
+                                                            <option value="2">Low</option>
+                                                            <option value="3">Lowest</option>
                                                       </select>
                                                 </div>
                                           </div>
-                                    </form>
-                              </div>
-                              <div class="row g-3 mb-3">
-                                    <div class="col-sm">
-                                          <label for="formFileMultipleone" class="form-label">Budget</label>
-                                          <input type="number" class="form-control">
+                                          <div class="mb-3">
+                                                <label for="exampleFormControlTextarea78" class="form-label">Description
+                                                      (optional)</label>
+                                                <textarea class="form-control" id="exampleFormControlTextarea78"
+                                                      rows="3"
+                                                      placeholder="Add any extra details about the request"></textarea>
+                                          </div>
                                     </div>
-                                    <div class="col-sm">
-                                          <label for="formFileMultipleone" class="form-label">Priority</label>
-                                          <select class="form-select" aria-label="Default select Priority">
-                                                <option selected>Highest</option>
-                                                <option value="1">Medium</option>
-                                                <option value="2">Low</option>
-                                                <option value="3">Lowest</option>
-                                          </select>
+                                    <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary"
+                                                @click="closeModal">Done</button>
+                                          <button type="button" class="btn btn-primary">Create</button>
                                     </div>
                               </div>
-                              <div class="mb-3">
-                                    <label for="exampleFormControlTextarea78" class="form-label">Description
-                                          (optional)</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea78" rows="3"
-                                          placeholder="Add any extra details about the request"></textarea>
-                              </div>
-                        </div>
-                        <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
-                              <button type="button" class="btn btn-primary">Create</button>
                         </div>
                   </div>
-            </div>
-      </div>
+            </transition>
+      </form>
 
       <!-- Edit Project-->
       <div class="modal fade" id="editproject" tabindex="-1" aria-hidden="true">
@@ -746,4 +776,23 @@ defineOptions({
                   </div>
             </div>
       </div>
+      <div class="modal-backdrop fade show" v-if="showCreateProjectModal"></div>
 </template>
+<style scoped>
+.slide-down-enter-active,
+.slide-down-leave-active {
+      transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+      transform: translateY(-30px);
+      opacity: 0;
+}
+
+.slide-down-enter-to,
+.slide-down-leave-from {
+      transform: translateY(0);
+      opacity: 1;
+}
+</style>

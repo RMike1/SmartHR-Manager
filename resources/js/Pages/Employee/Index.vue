@@ -115,9 +115,9 @@ const update = () => {
                                           class="card-header py-3 px-0 d-sm-flex align-items-center  justify-content-between border-bottom">
                                           <h3 class=" fw-bold flex-fill mb-0 mt-sm-0">Employee</h3>
 
-                                          <a class="btn btn-dark me-1 mt-1 w-sm-100" @click.prevent="openModal">
+                                          <button class="btn btn-dark me-1 mt-1 w-sm-100" @click.prevent="openModal">
                                                 <i class="icofont-plus-circle me-2 fs-6"></i>Add Employee
-                                          </a>
+                                          </button>
 
                                           <div class="dropdown">
                                                 <button class="btn btn-primary dropdown-toggle mt-1  w-sm-100"
