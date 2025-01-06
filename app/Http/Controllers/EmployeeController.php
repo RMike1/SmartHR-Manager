@@ -30,9 +30,9 @@ class EmployeeController extends Controller
         Employee::create($validated);
     }
     public function updateEmployee(StoreEmployeeRequest $request){
+        // dd($request);
         $validated=$request->validated();
         $id=$request['id'];
-        // dd($request);
         if($request->file('employee_image')){
             $request->file('employee_image')->store('employees');
             

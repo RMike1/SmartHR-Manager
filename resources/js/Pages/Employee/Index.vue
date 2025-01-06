@@ -90,7 +90,7 @@ const submit = () => {
       });
 };
 const update = () => {
-      form.put(route('update.employee',selectedEmployee.value,{errorBag: 'editEmployee'}), {
+      form.put(route('update.employee',selectedEmployee.value), {
             // forceFormData:true,
             onSuccess: () => {
                   form.reset();
@@ -383,7 +383,7 @@ const update = () => {
             <transition name="slide-down">
                   <div class="modal fade" v-if="showModal" :class="{ show: showModal }"
                         :style="{ display: showModal ? 'block' : 'none' }">
-                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" @click.stop="">
                               <div class="modal-content">
                                     <div class="modal-header">
                                           <h5 class="modal-title  fw-bold" id="createprojectlLabel">{{ modalTitle }}
