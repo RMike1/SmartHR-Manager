@@ -382,8 +382,8 @@ const update = () => {
       <form @submit.prevent="modalSubMission === 'submit' ? submit() : update()">
             <transition name="slide-down">
                   <div class="modal fade" v-if="showModal" :class="{ show: showModal }"
-                        :style="{ display: showModal ? 'block' : 'none' }">
-                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" @click.stop="">
+                        :style="{ display: showModal ? 'block' : 'none' }" @click.stop="closeModal">
+                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                               <div class="modal-content">
                                     <div class="modal-header">
                                           <h5 class="modal-title  fw-bold" id="createprojectlLabel">{{ modalTitle }}
@@ -496,7 +496,7 @@ const update = () => {
                                                 <InputLabel for="employee_image" value="Employee Image" />
                                                 <TextInput type="file" id="employee_image" accept="image/*" @input="change"/>
                                                 <img type="file" :src="form.preview ?? form.preview" style="width: 50px; height: auto;"/>
-                                                <img :src="form.employee_image ? 'storage/' + form.employee_image : 'storage/default.jpg'" style="height: auto; width: 50px;" alt="">
+                                                <img :src="'storage/' + form.employee_image"  style="height: auto; width: 50px;" alt="">
                                                 <!-- <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                                                       {{ form.progress.percentage }}%
                                                 </progress> -->
