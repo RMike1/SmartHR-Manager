@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Models\ProjectCategory;
 
 class ProjectController extends Controller
 {
@@ -12,7 +13,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Inertia::render(component: 'Project/Index');
+        $category = ProjectCategory::all();    
+        return Inertia::render('Project/Index',[
+            'projectCategory' => $category
+        ]);
     }
 
     /**

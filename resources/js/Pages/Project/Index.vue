@@ -6,6 +6,7 @@ defineOptions({
       layout: Layout
 });
 const props = defineProps({
+      'ProjectCategory': Array,
 });
 const showCreateProjectModal = ref(false);
 const createProject = () => {
@@ -13,6 +14,10 @@ const createProject = () => {
 }
 const closeModal = () => {
       showCreateProjectModal.value = false;
+}
+
+const storeProject = () => {
+
 }
 
 </script>
@@ -528,7 +533,7 @@ const closeModal = () => {
       </div>
 
       <!-- Create Project-->
-      <form>
+      <form @submit.prevent="storeProject">
             <transition name="slide-down">
                   <div class="modal fade" tabindex="-1" v-if="showCreateProjectModal"
                         :class="{ show: showCreateProjectModal }"

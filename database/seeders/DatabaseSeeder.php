@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\JobTitle;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\JobTitle;
 use App\Models\Department;
+use App\Models\ProjectCategory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,5 +26,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'jonsnow@gmail.com',
             'password' => 1234,
         ]);
+        ProjectCategory::factory(20)->create();
     }
 }
