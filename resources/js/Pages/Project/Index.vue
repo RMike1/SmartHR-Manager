@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import Layout from '@/Layouts/MainLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -35,7 +35,20 @@ const form = useForm({
             'end_date':null,
 });
 
+const handleKeyUp = (event) => {
+  if (event.key === 'Escape' && showCreateProjectModal.value) {
+    closeModal();
+  }
+};
+onMounted(() => {
+  window.addEventListener('keyup', handleKeyUp);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keyup', handleKeyUp);
+});
 </script>
+
 <template>
 
       <Head>
@@ -550,7 +563,7 @@ const form = useForm({
       <!-- Create Project-->
       <form @submit.prevent="storeProject">
             <transition name="slide-down">
-                  <div class="modal fade" tabindex="-1" v-if="showCreateProjectModal" @click.self.prevent="closeModal" @keyup.esc="closeModal"
+                  <div class="modal fade" tabindex="-1" v-if="showCreateProjectModal" @click.self.prevent="closeModal"
                         :class="{ show: showCreateProjectModal }"
                         :style="{ display: showCreateProjectModal ? 'block' : 'none' }">
                         <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
