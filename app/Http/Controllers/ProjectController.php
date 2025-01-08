@@ -15,7 +15,7 @@ class ProjectController extends Controller
     {
         $category = ProjectCategory::all();    
         return Inertia::render('Project/Index',[
-            'projectCategory' => $category
+            'projectCategories' => $category
         ]);
     }
 

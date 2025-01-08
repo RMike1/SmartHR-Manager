@@ -398,8 +398,7 @@ const update = () => {
                                                             <TextInput type="text" v-model="form.employee_first_name"
                                                                   placeholder="First Name.." id="employee_first_name"
                                                                   autocomplete="firstName" />
-                                                            <InputError class="mt-2"
-                                                                  :message="form.errors.employee_first_name" />
+                                                            <InputError class="mt-2" :message="form.errors.employee_first_name" />
                                                       </div>
                                                       <div class="col-sm-6">
                                                             <InputLabel for="employee_second_name"
@@ -456,8 +455,8 @@ const update = () => {
                                                       </div>
                                                       <div class="col">
                                                             <InputLabel value="Department" />
-                                                            <select class="form-select" v-model="form.department_id">
-                                                                  <option disabled hidden selected>Select</option>
+                                                            <select class="form-select" aria-label="" v-model="form.department_id">
+                                                                  <option selected disabled>Select Department</option>
                                                                   <option :value="department.id"
                                                                         v-for="(department, index) in departments"
                                                                         :key="index">{{ department.department_name }}
@@ -471,7 +470,7 @@ const update = () => {
                                                       <div class="col">
                                                             <InputLabel value="Position" />
                                                             <select class="form-select" v-model="form.job_title_id">
-                                                                  <option disabled hidden selected>Select</option>
+                                                                  <option selected disabled value="">Select Position</option>
                                                                   <option v-for="(jobtitle, index) in jobtitles"
                                                                         :key="index" :value="jobtitle.id">
                                                                         {{ jobtitle.job_title_name }}</option>

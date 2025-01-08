@@ -1,12 +1,15 @@
 <script setup>
 import { ref } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import Layout from '@/Layouts/MainLayout.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputError from '@/Components/InputError.vue';
 defineOptions({
       layout: Layout
 });
 const props = defineProps({
-      'ProjectCategory': Array,
+      'projectCategories': Array,
 });
 const showCreateProjectModal = ref(false);
 const createProject = () => {
@@ -17,8 +20,20 @@ const closeModal = () => {
 }
 
 const storeProject = () => {
-
 }
+const form = useForm({
+            'project_name':null,
+            'project_description':null,
+            'project_status':null,
+            'project_image':null,
+            'project_budget':null,
+            'notification':null,
+            'description':null,
+            'employee_id':null,
+            'category_id':null,
+            'start_date':null,
+            'end_date':null,
+});
 
 </script>
 <template>
@@ -535,7 +550,7 @@ const storeProject = () => {
       <!-- Create Project-->
       <form @submit.prevent="storeProject">
             <transition name="slide-down">
-                  <div class="modal fade" tabindex="-1" v-if="showCreateProjectModal" @click.self.prevent="closeModal" 
+                  <div class="modal fade" tabindex="-1" v-if="showCreateProjectModal" @click.self.prevent="closeModal" @keyup.esc="closeModal"
                         :class="{ show: showCreateProjectModal }"
                         :style="{ display: showCreateProjectModal ? 'block' : 'none' }">
                         <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
@@ -547,27 +562,18 @@ const storeProject = () => {
                                     </div>
                                     <div class="modal-body">
                                           <div class="mb-3">
-                                                <label for="exampleFormControlInput77" class="form-label">Project
-                                                      Name</label>
-                                                <input type="text" class="form-control" id="exampleFormControlInput77"
-                                                      placeholder="Explain what the Project Name">
+                                                <InputLabel for="project_name" value="Project Name" />
+                                                <TextInput type="text" v-model="form.project_name"
+                                                      placeholder="Project Name.." id="project_name" autocomplete="projectName" />
+                                                <InputError class="mt-2" :message="form.errors.project_name" />
                                           </div>
                                           <div class="mb-3">
-                                                <label class="form-label">Project Category</label>
-                                                <select class="form-select"
-                                                      aria-label="Default select Project Category">
-                                                      <option selected>UI/UX Design</option>
-                                                      <option value="1">Website Design</option>
-                                                      <option value="2">App Development</option>
-                                                      <option value="3">Quality Assurance</option>
-                                                      <option value="4">Development</option>
-                                                      <option value="5">Backend Development</option>
-                                                      <option value="6">Software Testing</option>
-                                                      <option value="7">Website Design</option>
-                                                      <option value="8">Marketing</option>
-                                                      <option value="9">SEO</option>
-                                                      <option value="10">Other</option>
+                                                <InputLabel for="project_category" value="Project Category" />
+                                                <select class="form-select" v-model="form.category_id">
+                                                      <option selected disabled>Select Category</option>
+                                                      <option v-for="(projectCategory,index) in projectCategories" :key="index">{{ projectCategory.name }}</option>
                                                 </select>
+                                                <InputError class="mt-2" :message="form.errors.category_id" />
                                           </div>
                                           <div class="mb-3">
                                                 <label for="formFileMultipleone" class="form-label">Project Images &
@@ -576,28 +582,23 @@ const storeProject = () => {
                                                       multiple>
                                           </div>
                                           <div class="deadline-form">
-                                                <form>
                                                       <div class="row g-3 mb-3">
                                                             <div class="col">
-                                                                  <label for="datepickerded" class="form-label">Project
-                                                                        Start
-                                                                        Date</label>
-                                                                  <input type="date" class="form-control"
-                                                                        id="datepickerded">
+                                                                  <InputLabel for="start-date" value="Project Start Date" />
+                                                                  <TextInput type="date" v-model="form.start_date"
+                                                                        id="start-date" autocomplete="startDate" />
+                                                                  <InputError class="mt-2" :message="form.errors.start_date" />
                                                             </div>
                                                             <div class="col">
-                                                                  <label for="datepickerdedone"
-                                                                        class="form-label">Project End
-                                                                        Date</label>
-                                                                  <input type="date" class="form-control"
-                                                                        id="datepickerdedone">
+                                                                  <InputLabel for="end-date" value="Project End Date"/>
+                                                                  <TextInput type="date" v-model="form.end_date" id="end-date" autocomplete="endDate"/>
+                                                                  <InputError class="mt-2" :message="form.errors.end_date" />
                                                             </div>
                                                       </div>
                                                       <div class="row g-3 mb-3">
                                                             <div class="col-sm-12">
                                                                   <label class="form-label">Notifation Sent</label>
-                                                                  <select class="form-select"
-                                                                        aria-label="Default select example">
+                                                                  <select class="form-select" aria-label="Default select example">
                                                                         <option selected>All</option>
                                                                         <option value="1">Team Leader Only</option>
                                                                         <option value="2">Team Member Only</option>
@@ -619,7 +620,6 @@ const storeProject = () => {
                                                                   </select>
                                                             </div>
                                                       </div>
-                                                </form>
                                           </div>
                                           <div class="row g-3 mb-3">
                                                 <div class="col-sm">
