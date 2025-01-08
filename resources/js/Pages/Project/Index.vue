@@ -535,7 +535,7 @@ const storeProject = () => {
       <!-- Create Project-->
       <form @submit.prevent="storeProject">
             <transition name="slide-down">
-                  <div class="modal fade" tabindex="-1" v-if="showCreateProjectModal" @click.stop="closeModal"
+                  <div class="modal fade" tabindex="-1" v-if="showCreateProjectModal" @click.self.prevent="closeModal" 
                         :class="{ show: showCreateProjectModal }"
                         :style="{ display: showCreateProjectModal ? 'block' : 'none' }">
                         <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">

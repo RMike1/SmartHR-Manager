@@ -382,7 +382,7 @@ const update = () => {
       <form @submit.prevent="modalSubMission === 'submit' ? submit() : update()">
             <transition name="slide-down">
                   <div class="modal fade" v-if="showModal" :class="{ show: showModal }"
-                        :style="{ display: showModal ? 'block' : 'none' }" @click.stop="closeModal">
+                        :style="{ display: showModal ? 'block' : 'none' }" @click.self.prevent="closeModal">
                         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                               <div class="modal-content">
                                     <div class="modal-header">
