@@ -10,6 +10,7 @@ defineOptions({
 });
 const props = defineProps({
       'projectCategories': Array,
+      'projectNotifications': Array,
 });
 const showCreateProjectModal = ref(false);
 const createProject = () => {
@@ -583,8 +584,8 @@ onBeforeUnmount(() => {
                                           <div class="mb-3">
                                                 <InputLabel for="project_category" value="Project Category" />
                                                 <select class="form-select" v-model="form.category_id">
-                                                      <option selected disabled>Select Category</option>
-                                                      <option v-for="(projectCategory,index) in projectCategories" :key="index">{{ projectCategory.name }}</option>
+                                                      <option selected disabled value="">Select Category</option>
+                                                      <option v-for="(projectCategory, index) in projectCategories" :key="index" :value="projectCategory.id">{{ projectCategory.name }}</option>
                                                 </select>
                                                 <InputError class="mt-2" :message="form.errors.category_id" />
                                           </div>
@@ -611,16 +612,12 @@ onBeforeUnmount(() => {
                                                       <div class="row g-3 mb-3">
                                                             <div class="col-sm-12">
                                                                   <label class="form-label">Notifation Sent</label>
-                                                                  <select class="form-select" aria-label="Default select example">
-                                                                        <option selected>All</option>
-                                                                        <option value="1">Team Leader Only</option>
-                                                                        <option value="2">Team Member Only</option>
+                                                                  <select class="form-select" v-model="form.notification">
+                                                                        <option selected v-for="(projectNotification, index) in projectNotifications" :key="index" :value="projectNotification">{{projectNotification}}</option>
                                                                   </select>
                                                             </div>
                                                             <div class="col-sm-12">
-                                                                  <label for="formFileMultipleone"
-                                                                        class="form-label">Task
-                                                                        Assign Person</label>
+                                                                  <label for="formFileMultipleone"class="form-label">Task Assign Person</label>
                                                                   <select class="form-select" multiple
                                                                         aria-label="Default select Priority">
                                                                         <option selected>Lucinda Massey</option>

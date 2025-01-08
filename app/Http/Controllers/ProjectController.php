@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\ProjectCategory;
+use App\Enums\ProjectNotification;
 
 class ProjectController extends Controller
 {
@@ -14,8 +15,11 @@ class ProjectController extends Controller
     public function index()
     {
         $category = ProjectCategory::all();    
+        $projectNotifications=ProjectNotification::cases();
+        // dd($projectNotifications);
         return Inertia::render('Project/Index',[
-            'projectCategories' => $category
+            'projectCategories' => $category,
+            'projectNotifications' => $projectNotifications
         ]);
     }
 

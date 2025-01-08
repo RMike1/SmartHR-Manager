@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import { Head, useForm, Link, router } from '@inertiajs/vue3';
 import StoreEmployeeModal from '../Modals/StoreEmployeeModal.vue';
 import Layout from '@/Layouts/MainLayout.vue';
@@ -43,6 +43,7 @@ const buttonProcessingSubMission = computed(() => (editMode.value === 'create' ?
 const selectedEmployee = ref(null);
 const openModal = (emp) => {
       form.clearErrors();
+      form.preview=null;
       selectedEmployee.value = props.employees.find(employee => employee.id == emp);
       if (selectedEmployee.value) {
             editMode.value = 'edit';
@@ -86,6 +87,8 @@ const submit = () => {
             onSuccess: () => {
                   form.reset();
                   closeModal();
+                  form.preview=null;
+                  
             },
       });
 };
@@ -95,10 +98,22 @@ const update = () => {
             onSuccess: () => {
                   form.reset();
                   closeModal();
+                  form.preview=null;
             },
       });
 };
+const handleKeyUp = (event) => {
+  if (event.key === 'Escape' && showModal.value) {
+    closeModal();
+  }
+};
+onMounted(() => {
+  window.addEventListener('keyup', handleKeyUp);
+});
 
+onBeforeUnmount(() => {
+  window.removeEventListener('keyup', handleKeyUp);
+});
 </script>
 <template>
 
