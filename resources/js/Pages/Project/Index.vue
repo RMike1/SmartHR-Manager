@@ -5,6 +5,8 @@ import Layout from '@/Layouts/MainLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 defineOptions({
       layout: Layout
 });
@@ -22,17 +24,14 @@ const closeModal = () => {
       showCreateProjectModal.value = false;
 }
 
-const storeProject = () => {
-}
 const form = useForm({
             'project_name':null,
-            'project_description':null,
             'project_status':null,
             'project_image':null,
             'project_budget':null,
             'notification':null,
             'project_priority':null,
-            'description':null,
+            'project_description':null,
             'employee_id':null,
             'category_id':null,
             'start_date':null,
@@ -51,6 +50,19 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('keyup', handleKeyUp);
 });
+const change = (e) =>{
+      form.project_image=e.target.files[0];
+      form.preview=URL.createObjectURL(e.target.files[0]);
+}
+const storeProject = () => {
+      form.post(route('project.store'),{
+            onSuccess : () => {
+                  form.reset();
+                  closeModal();
+                  form.preview=null
+            }
+      });
+}
 </script>
 
 <template>
@@ -593,17 +605,15 @@ onBeforeUnmount(() => {
                                                 <InputError class="mt-2" :message="form.errors.category_id" />
                                           </div>
                                           <div class="mb-3">
-                                                <label for="formFileMultipleone" class="form-label">Project Images &
-                                                      Document</label>
-                                                <input class="form-control" type="file" id="formFileMultipleone"
-                                                      multiple>
+                                                <InputLabel for="project-image" value="Image/Document"/>
+                                                <TextInput type="file" @input="change" id="project-image"/>
+                                                <img :src="form.preview" width="80" height="auto" alt="">
                                           </div>
                                           <div class="deadline-form">
                                                       <div class="row g-3 mb-3">
                                                             <div class="col">
                                                                   <InputLabel for="start-date" value="Project Start Date" />
-                                                                  <TextInput type="date" v-model="form.start_date"
-                                                                        id="start-date" autocomplete="startDate" />
+                                                                  <TextInput type="date" v-model="form.start_date" id="start-date" autocomplete="startDate" />
                                                                   <InputError class="mt-2" :message="form.errors.start_date" />
                                                             </div>
                                                             <div class="col">
@@ -614,45 +624,49 @@ onBeforeUnmount(() => {
                                                       </div>
                                                       <div class="row g-3 mb-3">
                                                             <div class="col-sm-12">
-                                                                  <InputLabel for="notification-sent" value="Notification Sent"/>
+                                                                  <InputLabel for="notification-sent" value="Notification"/>
                                                                   <select class="form-select" id="notification-sent" v-model="form.notification">
                                                                         <option selected v-for="(projectNotification, index) in projectNotifications" :key="index" :value="projectNotification">{{projectNotification}}</option>
                                                                   </select>
+                                                                  <InputError class="mt-2" :message="form.errors.notification" />
                                                             </div>
                                                             <div class="col-sm-12">
-                                                                  <label for="formFileMultipleone"class="form-label">Head Project</label>
-                                                                  <select class="form-select" aria-label="Default select Priority" placeholder="select" v-model="form.employee_id">
+                                                                  <InputLabel for="head-project" value="Head Project"/>
+                                                                  <select class="form-select" aria-label="Default select Priority" v-model="form.employee_id">
                                                                         <option selected disabled>Select Leader</option>
                                                                         <option v-for="(leader,index) in leaders" :key="index" :value="leader.id">{{ leader.employee_first_name }} {{ leader.employee_second_name }}</option>
                                                                   </select>
+                                                                  <InputError class="mt-2" :message="form.errors.employee_id" />
                                                             </div>
                                                       </div>
                                           </div>
                                           <div class="row g-3 mb-3">
                                                 <div class="col-sm">
-                                                      <label for="formFileMultipleone" class="form-label">Budget</label>
-                                                      <input type="number" class="form-control" min='1'>
+                                                      <InputLabel for="project-budget" value="Budget"/>
+                                                      <TextInput type="number" v-model="form.project_budget" id="project-budget" min='1'/>
+                                                      <InputError class="mt-2" :message="form.errors.project_budget"/>
                                                 </div>
                                                 <div class="col-sm">
-                                                      <label for="formFileMultipleone" class="form-label">Priority</label>
+                                                      <InputLabel for="project-priority" value="Project Priority"/>
                                                       <select class="form-select" aria-label="Default select Priority"  v-model="form.project_priority">
                                                             <option selected disabled>Select Project Priority</option>
-                                                            <option v-for="(projectpriority,index) in projectpriorities" :value="projectpriority">{{projectpriority}}</option>
+                                                            <option v-for="(projectpriority,index) in projectpriorities" :key="index" :value="projectpriority">{{projectpriority}}</option>
                                                       </select>
+                                                      <InputError class="mt-2" :message="form.errors.project_priority" />
                                                 </div>
                                           </div>
                                           <div class="mb-3">
-                                                <label for="exampleFormControlTextarea78" class="form-label">Description
-                                                      (optional)</label>
-                                                <textarea class="form-control" id="exampleFormControlTextarea78"
-                                                      rows="3"
-                                                      placeholder="Add any extra details about the request"></textarea>
+                                                <InputLabel for="description" value="Description"/>
+                                                <textarea v-model="form.project_description" class="form-control" id="description" rows="3" placeholder="Add any extra details about the project"></textarea>
+                                                <InputError class="mt-2" :message="form.errors.project_description"/>
                                           </div>
                                     </div>
                                     <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary"
-                                                @click="closeModal">Done</button>
-                                          <button type="button" class="btn btn-primary">Create</button>
+                                          <SecondaryButton  @click="closeModal">Done</SecondaryButton>
+                                          <PrimaryButton class="btn btn-primary" :disabled="form.processing" :class="{'opacity-25': form.processing }">
+                                                <span v-if="form.processing">Saving...</span>
+                                                <span v-else>Save</span>
+                                          </PrimaryButton>
                                     </div>
                               </div>
                         </div>

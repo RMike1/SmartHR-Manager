@@ -32,7 +32,7 @@ import { Link } from '@inertiajs/vue3';
                     </ul>
                 </li>
                 <li class="collapsed">
-                    <a class="m-link" :class="{ 'active': $page.component === 'Projects' }" data-bs-toggle="collapse" data-bs-target="#project-Components" href="#">
+                    <a class="m-link" :class="{ 'active': $page.component === 'Project/Index' }" data-bs-toggle="collapse" data-bs-target="#project-Components" href="#">
                         <i class="icofont-briefcase"></i>
                         <span>Projects</span> 
                         <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span>
@@ -40,7 +40,7 @@ import { Link } from '@inertiajs/vue3';
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="project-Components">
                         <li>
-                            <Link class="ms-link" :class="{ 'active': $page.component === 'Projects' }" :href="route('projects')">
+                            <Link class="ms-link" :class="{ 'active': $page.component === 'Project/Index' }" :href="route('projects')">
                                 <span>Projects</span>
                             </Link>
                         </li>

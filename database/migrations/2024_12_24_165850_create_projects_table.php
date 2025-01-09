@@ -15,13 +15,12 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->string('project_name')->nullable();
-            $table->string('project_description')->nullable();
             $table->string('project_status')->nullable();
             $table->string('project_image')->nullable();
             $table->string('project_budget')->nullable();
             $table->string('project_priority')->nullable();
             $table->string('notification')->nullable();
-            $table->longText('description')->nullable();
+            $table->longText('project_description')->nullable();
             $table->foreignUlid('employee_id')->nullable()->on('employees')->onDelete('cascade');
             $table->foreignUlid('category_id')->nullable()->on('categories')->onDelete('restrict');
             $table->timestamp('start_date')->nullable();

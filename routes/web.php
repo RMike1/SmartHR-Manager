@@ -30,6 +30,7 @@ Route::middleware([
     Route::put('/employee/update',[EmployeeController::class,'updateEmployee'])->name('update.employee');
     Route::delete('/employee/delete/{id}',[EmployeeController::class,'deleteEmployee'])->name('employee.delete');
     Route::get('/projects',[ProjectController::class,'index'])->name('projects');
+    Route::post('/project/store',[ProjectController::class,'store'])->name('project.store');
 });
 
 
