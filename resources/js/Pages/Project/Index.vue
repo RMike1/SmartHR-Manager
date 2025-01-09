@@ -11,6 +11,7 @@ defineOptions({
 const props = defineProps({
       'projectCategories': Array,
       'projectNotifications': Array,
+      'leaders': Array
 });
 const showCreateProjectModal = ref(false);
 const createProject = () => {
@@ -611,22 +612,16 @@ onBeforeUnmount(() => {
                                                       </div>
                                                       <div class="row g-3 mb-3">
                                                             <div class="col-sm-12">
-                                                                  <label class="form-label">Notifation Sent</label>
-                                                                  <select class="form-select" v-model="form.notification">
+                                                                  <InputLabel for="notification-sent" value="Notification Sent"/>
+                                                                  <select class="form-select" id="notification-sent" v-model="form.notification">
                                                                         <option selected v-for="(projectNotification, index) in projectNotifications" :key="index" :value="projectNotification">{{projectNotification}}</option>
                                                                   </select>
                                                             </div>
                                                             <div class="col-sm-12">
-                                                                  <label for="formFileMultipleone"class="form-label">Task Assign Person</label>
-                                                                  <select class="form-select" multiple
-                                                                        aria-label="Default select Priority">
-                                                                        <option selected>Lucinda Massey</option>
-                                                                        <option value="1">Ryan Nolan</option>
-                                                                        <option value="2">Oliver Black</option>
-                                                                        <option value="3">Adam Walker</option>
-                                                                        <option value="4">Brian Skinner</option>
-                                                                        <option value="5">Dan Short</option>
-                                                                        <option value="5">Jack Glover</option>
+                                                                  <label for="formFileMultipleone"class="form-label">Head Project</label>
+                                                                  <select class="form-select" aria-label="Default select Priority" placeholder="select" v-model="form.employee_id">
+                                                                        <option selected disabled>Select Leader</option>
+                                                                        <option v-for="(leader,index) in leaders" :key="index" :value="leader.id">{{ leader.employee_first_name }} {{ leader.employee_second_name }}</option>
                                                                   </select>
                                                             </div>
                                                       </div>
@@ -634,7 +629,7 @@ onBeforeUnmount(() => {
                                           <div class="row g-3 mb-3">
                                                 <div class="col-sm">
                                                       <label for="formFileMultipleone" class="form-label">Budget</label>
-                                                      <input type="number" class="form-control">
+                                                      <input type="number" class="form-control" min='1'>
                                                 </div>
                                                 <div class="col-sm">
                                                       <label for="formFileMultipleone"
