@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
-use Illuminate\Http\Request;
-use App\Models\ProjectCategory;
 use App\Models\Employee;
+use Illuminate\Http\Request;
+use App\Enums\ProjectPriority;
+use App\Models\ProjectCategory;
 use App\Enums\ProjectNotification;
 
 class ProjectController extends Controller
@@ -17,11 +18,13 @@ class ProjectController extends Controller
     {
         $category = ProjectCategory::all();    
         $projectNotifications=ProjectNotification::cases();
+        $projectpriorities=ProjectPriority::cases();
         $leaders=Employee::where('is_leader','=',true)->get();
         return Inertia::render('Project/Index',[
             'projectCategories' => $category,
             'projectNotifications' => $projectNotifications,
             'leaders' => $leaders,
+            'projectpriorities'=>$projectpriorities
         ]);
     }
 

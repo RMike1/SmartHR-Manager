@@ -11,7 +11,8 @@ defineOptions({
 const props = defineProps({
       'projectCategories': Array,
       'projectNotifications': Array,
-      'leaders': Array
+      'leaders': Array,
+      'projectpriorities': Array,
 });
 const showCreateProjectModal = ref(false);
 const createProject = () => {
@@ -30,6 +31,7 @@ const form = useForm({
             'project_image':null,
             'project_budget':null,
             'notification':null,
+            'project_priority':null,
             'description':null,
             'employee_id':null,
             'category_id':null,
@@ -632,13 +634,10 @@ onBeforeUnmount(() => {
                                                       <input type="number" class="form-control" min='1'>
                                                 </div>
                                                 <div class="col-sm">
-                                                      <label for="formFileMultipleone"
-                                                            class="form-label">Priority</label>
-                                                      <select class="form-select" aria-label="Default select Priority">
-                                                            <option selected>Highest</option>
-                                                            <option value="1">Medium</option>
-                                                            <option value="2">Low</option>
-                                                            <option value="3">Lowest</option>
+                                                      <label for="formFileMultipleone" class="form-label">Priority</label>
+                                                      <select class="form-select" aria-label="Default select Priority"  v-model="form.project_priority">
+                                                            <option selected disabled>Select Project Priority</option>
+                                                            <option v-for="(projectpriority,index) in projectpriorities" :value="projectpriority">{{projectpriority}}</option>
                                                       </select>
                                                 </div>
                                           </div>

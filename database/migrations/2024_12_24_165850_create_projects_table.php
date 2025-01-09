@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('project_status')->nullable();
             $table->string('project_image')->nullable();
             $table->string('project_budget')->nullable();
+            $table->string('project_priority')->nullable();
             $table->string('notification')->nullable();
             $table->longText('description')->nullable();
             $table->foreignUlid('employee_id')->nullable()->on('employees')->onDelete('cascade');
