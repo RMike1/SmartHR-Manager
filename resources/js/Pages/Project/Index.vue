@@ -608,6 +608,7 @@ const storeProject = () => {
                                                 <InputLabel for="project-image" value="Image/Document"/>
                                                 <TextInput type="file" @input="change" id="project-image"/>
                                                 <img :src="form.preview" width="80" height="auto" alt="">
+                                                <InputError class="mt-2" :message="form.errors.project_image" />
                                           </div>
                                           <div class="deadline-form">
                                                       <div class="row g-3 mb-3">

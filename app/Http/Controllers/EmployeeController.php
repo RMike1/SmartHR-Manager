@@ -22,7 +22,6 @@ class EmployeeController extends Controller
         ]);
     }
     public function saveEmployee(StoreEmployeeRequest $request){
-        // dd($request);
         $validated=$request->validated();
         if($request->hasFile('employee_image')){
             $validated['employee_image']=Storage::disk('public')->put('employees', $request->employee_image);

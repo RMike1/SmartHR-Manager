@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use App\Models\Project;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Enums\ProjectPriority;
 use App\Models\ProjectCategory;
 use App\Enums\ProjectNotification;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\storeProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -30,11 +33,17 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(storeProjectRequest $request)
     {
-        $validated=$request->validate([
-            
-        ]);
+        $validated=$request->validated();
+            // dd($request);
+
+            if($request->hasFile('project_image')){
+                $validated['project_image']=Storage::disk('public')->put('projects',$request->project_image);
+            }
+        Project::create($validated);
+        return to_route('projects');
+
     }
 
     /**
