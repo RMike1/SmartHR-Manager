@@ -41,26 +41,26 @@ const modalSubMission = computed(() => (editMode.value === 'create' ? 'submit' :
 const buttonSubMission = computed(() => (editMode.value === 'create' ? 'Save' : 'Update'));
 const buttonProcessingSubMission = computed(() => (editMode.value === 'create' ? 'Saving...' : 'Updating...'));
 const selectedEmployee = ref(null);
-const openModal = (emp) => {
+const openModal = (employee) => {
       form.clearErrors();
       form.preview=null;
-      selectedEmployee.value = props.employees.find(employee => employee.id == emp);
-      if (selectedEmployee.value) {
+      
+      if (employee) {
             editMode.value = 'edit';
             showModal.value = true;
-            form.employee_first_name = selectedEmployee.value.employee_first_name || '';
-            form.employee_second_name = selectedEmployee.value.employee_second_name || '';
-            form.employee_identity = selectedEmployee.value.employee_identity || '';
-            form.employee_email = selectedEmployee.value.employee_email || '';
-            form.employee_phone = selectedEmployee.value.employee_phone || '';
-            form.department_id = selectedEmployee.value.department_id || '';
-            form.employee_passcode = selectedEmployee.value.employee_passcode || '';
-            form.employee_description = selectedEmployee.value.employee_description || '';
-            form.job_title_id = selectedEmployee.value.job_title_id || '';
-            form.joining_date = selectedEmployee.value.joining_date || '';
-            form.id = selectedEmployee.value.id;
-            form.is_leader = selectedEmployee.value.is_leader ? true : false;
-            form.employee_image = selectedEmployee.value.employee_image || null ;
+            form.employee_first_name = employee.employee_first_name || '';
+            form.employee_second_name = employee.employee_second_name || '';
+            form.employee_identity = employee.employee_identity || '';
+            form.employee_email = employee.employee_email || '';
+            form.employee_phone = employee.employee_phone || '';
+            form.department_id = employee.department_id || '';
+            form.employee_passcode = employee.employee_passcode || '';
+            form.employee_description = employee.employee_description || '';
+            form.job_title_id = employee.job_title_id || '';
+            form.joining_date = employee.joining_date || '';
+            form.id = employee.id;
+            form.is_leader = employee.is_leader ? true : false;
+            form.employee_image = employee.employee_image || null ;
       } else {
             form.reset();
             showModal.value = true;
@@ -198,7 +198,7 @@ onBeforeUnmount(() => {
                                                       Profile</a>
                                           </div>
                                           <div>
-                                                <button @click.prevent="openModal(employee.id)" type="button"
+                                                <button @click.prevent="openModal(employee)" type="button"
                                                       class="btn btn-dark me-1 btn-sm mt-1" title="Edit Employee">
                                                       <i class="icofont-edit fs-6"></i></button>
                                                 <button @click="deleteEmp(employee.id)" type="button"
