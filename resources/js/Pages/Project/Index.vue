@@ -64,6 +64,19 @@ const storeProject = () => {
             }
       });
 }
+
+const editProjectModal = (project) => {
+      showCreateProjectModal.value = true;
+      form.project_name=project.project_name;
+      form.category_id=project.category_id;
+      form.project_budget=project.project_budget;
+      form.notification=project.notification;
+      form.project_priority=project.project_priority;
+      form.project_description=project.project_description;
+      form.employee_id=project.employee_id;
+      form.start_date=project.start_date;
+      form.end_date=project.end_date;
+}
 </script>
 
 <template>
@@ -117,18 +130,9 @@ const storeProject = () => {
                                                                               <span class="small text-muted project_name fw-bold">{{ project.employee.employee_first_name }} {{ project.category.name }}</span>
                                                                               <h6 class="fw-bold  fs-6  mb-2">{{ project.project_name }}</h6>
                                                                         </div>
-                                                                        <div class="btn-group" role="group"
-                                                                              aria-label="Basic outlined example">
-                                                                              <button type="button"
-                                                                                    class="btn btn-outline-secondary"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#editproject"><i
-                                                                                          class="icofont-edit text-success"></i></button>
-                                                                              <button type="button"
-                                                                                    class="btn btn-outline-secondary"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#deleteproject"><i
-                                                                                          class="icofont-ui-delete text-danger"></i></button>
+                                                                        <div class="btn-group">
+                                                                              <button @click="editProjectModal(project)" type="button" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></button>
+                                                                              <button type="button" class="btn btn-outline-secondary"><i class="icofont-ui-delete text-danger"></i></button>
                                                                         </div>
                                                                   </div>
                                                                   <div class="d-flex align-items-center">
@@ -615,12 +619,12 @@ const storeProject = () => {
                                                       <div class="row g-3 mb-3">
                                                             <div class="col">
                                                                   <InputLabel for="start-date" value="Project Start Date" />
-                                                                  <TextInput type="date" v-model="form.start_date" id="start-date" autocomplete="startDate" />
+                                                                  <TextInput type="date" v-model="form.start_date" id="start-date"/>
                                                                   <InputError class="mt-2" :message="form.errors.start_date" />
                                                             </div>
                                                             <div class="col">
                                                                   <InputLabel for="end-date" value="Project End Date"/>
-                                                                  <TextInput type="date" v-model="form.end_date" id="end-date" autocomplete="endDate"/>
+                                                                  <TextInput type="date" v-model="form.end_date" id="end-date"/>
                                                                   <InputError class="mt-2" :message="form.errors.end_date" />
                                                             </div>
                                                       </div>
