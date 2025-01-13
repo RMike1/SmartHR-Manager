@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 class Project extends Model
 {
     use HasUlids;
-    protected $guarder=[];
+    protected $guarded=[];
     protected $table = 'projects';
     protected $casts = [
         'start_date' => 'datetime',

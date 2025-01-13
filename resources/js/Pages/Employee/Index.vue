@@ -509,7 +509,7 @@ onBeforeUnmount(() => {
                                           <div class="mb-3">
                                                 <InputLabel for="employee_image" value="Employee Image" />
                                                 <TextInput type="file" id="employee_image" accept="image/*" @input="change"/>
-                                                <img type="file" :src="form.preview ?? form.preview" style="width: 50px; height: auto;"/>
+                                                <img  :src="form.preview ?? form.preview" style="width: 50px; height: auto;"/>
                                                 <img :src="'storage/' + form.employee_image"  style="height: auto; width: 50px;" alt="">
                                                 <!-- <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                                                       {{ form.progress.percentage }}%

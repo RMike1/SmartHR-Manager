@@ -7,9 +7,11 @@ import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+
 defineOptions({
       layout: Layout
 });
+
 const props = defineProps({
       'projectCategories': Array,
       'projectNotifications': Array,
@@ -19,6 +21,8 @@ const props = defineProps({
 });
 const showCreateProjectModal = ref(false);
 const createProject = () => {
+      form.reset();
+      form.clearErrors();
       showCreateProjectModal.value = true;
 }
 const closeModal = () => {
@@ -74,13 +78,12 @@ const editProjectModal = (project) => {
       form.project_priority=project.project_priority;
       form.project_description=project.project_description;
       form.employee_id=project.employee_id;
+      form.project_image=project.project_image;
       form.start_date=project.start_date;
       form.end_date=project.end_date;
 }
 </script>
-
 <template>
-
       <Head>
             <title>Projects</title>
       </Head>
@@ -127,7 +130,7 @@ const editProjectModal = (project) => {
                                                                               <div class="project-block bg-careys-pink">
                                                                                     <i class="icofont-site-map"></i>
                                                                               </div>
-                                                                              <span class="small text-muted project_name fw-bold">{{ project.employee.employee_first_name }} {{ project.category.name }}</span>
+                                                                              <span class="small text-muted project_name fw-bold">{{ project.category.name }}</span>
                                                                               <h6 class="fw-bold  fs-6  mb-2">{{ project.project_name }}</h6>
                                                                         </div>
                                                                         <div class="btn-group">
@@ -171,9 +174,8 @@ const editProjectModal = (project) => {
                                                                   <div class="row g-2 pt-4">
                                                                         <div class="col-6">
                                                                               <div class="d-flex align-items-center">
-                                                                                    <i class="icofont-paper-clip"></i>
-                                                                                    <span class="ms-2">8
-                                                                                          Attach</span>
+                                                                                    <i class="icofont-user"></i>
+                                                                                    <span class="ms-2">{{ project.employee.employee_first_name }} ( Team Leader )</span>
                                                                               </div>
                                                                         </div>
                                                                         <div class="col-6">
@@ -609,8 +611,9 @@ const editProjectModal = (project) => {
                                           <div class="mb-3">
                                                 <InputLabel for="project-image" value="Image/Document"/>
                                                 <TextInput type="file" @input="change" id="project-image"/>
-                                                <img :src="form.preview" width="80" height="auto" alt="">
-                                                <InputError class="mt-2" :message="form.errors.project_image" />
+                                                <img :src="form.preview ?? form.preview" width="80" height="auto" alt="">
+                                                <img :src="'storage/'+ form.project_image" style="height: auto; width: 50px" :alt="form.employee_first_name"/>
+                                                <InputError class="mt-2" :message="form.errors.project_image"/>
                                           </div>
                                           <div class="deadline-form">
                                                       <div class="row g-3 mb-3">
