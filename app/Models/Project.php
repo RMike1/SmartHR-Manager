@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Employee;
+use App\Models\ProjectCategory;
 use App\Enums\ProjectPriority;
 use App\Enums\ProjectNotification;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 class Project extends Model
 {
     use HasUlids;
-    protected $guarded = [];
+    protected $guarder=[];
     protected $table = 'projects';
     protected $casts = [
         'start_date' => 'datetime',
@@ -22,5 +23,8 @@ class Project extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+    public function category(){
+        return $this->belongsTo(ProjectCategory::class,'category_id','id');
     }
 }

@@ -15,6 +15,7 @@ const props = defineProps({
       'projectNotifications': Array,
       'leaders': Array,
       'projectpriorities': Array,
+      'projects':Array
 });
 const showCreateProjectModal = ref(false);
 const createProject = () => {
@@ -103,20 +104,18 @@ const storeProject = () => {
                               <div class="tab-content mt-4">
                                     <div class="tab-pane fade show active" id="All-list">
                                           <div class="row g-3 gy-5 py-3 row-deck">
-                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6">
+
+
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6" v-for="(project, index) in projects" :key="index">
                                                       <div class="card">
                                                             <div class="card-body">
-                                                                  <div
-                                                                        class="d-flex align-items-center justify-content-between mt-5">
+                                                                  <div class="d-flex align-items-center justify-content-between mt-5">
                                                                         <div class="lesson_name">
                                                                               <div class="project-block bg-careys-pink">
                                                                                     <i class="icofont-site-map"></i>
                                                                               </div>
-                                                                              <span
-                                                                                    class="small text-muted project_name fw-bold">
-                                                                                    Java Dalia </span>
-                                                                              <h6 class="mb-0 fw-bold  fs-6  mb-2">
-                                                                                    Backend Development</h6>
+                                                                              <span class="small text-muted project_name fw-bold">{{ project.employee.employee_first_name }} {{ project.category.name }}</span>
+                                                                              <h6 class="fw-bold  fs-6  mb-2">{{ project.project_name }}</h6>
                                                                         </div>
                                                                         <div class="btn-group" role="group"
                                                                               aria-label="Basic outlined example">
@@ -221,6 +220,8 @@ const storeProject = () => {
                                                             </div>
                                                       </div>
                                                 </div>
+
+
                                           </div>
                                     </div>
                                     <div class="tab-pane fade" id="Started-list">

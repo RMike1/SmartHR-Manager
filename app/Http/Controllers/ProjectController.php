@@ -23,11 +23,13 @@ class ProjectController extends Controller
         $projectNotifications=ProjectNotification::cases();
         $projectpriorities=ProjectPriority::cases();
         $leaders=Employee::where('is_leader','=',true)->get();
+        $projects=Project::latest()->with('employee','category')->get();
         return Inertia::render('Project/Index',[
             'projectCategories' => $category,
             'projectNotifications' => $projectNotifications,
             'leaders' => $leaders,
-            'projectpriorities'=>$projectpriorities
+            'projectpriorities'=>$projectpriorities,
+            'projects'=>$projects
         ]);
     }
     /**
@@ -36,8 +38,6 @@ class ProjectController extends Controller
     public function store(storeProjectRequest $request)
     {
         $validated=$request->validated();
-            // dd($request);
-
             if($request->hasFile('project_image')){
                 $validated['project_image']=Storage::disk('public')->put('projects',$request->project_image);
             }
@@ -73,8 +73,9 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return to_route('projects');
     }
 }

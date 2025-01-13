@@ -11,4 +11,6 @@ class ProjectCategory extends Model
     /** @use HasFactory<\Database\Factories\ProjectCategoryFactory> */
     use HasFactory , HasUlids;
     protected $guarded=[];
+
+    protected $table = 'project_categories';
 }
