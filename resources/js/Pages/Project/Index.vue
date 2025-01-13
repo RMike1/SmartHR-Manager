@@ -239,11 +239,8 @@ const editProjectModal = (project) => {
                                                                               <div class="project-block light-info-bg">
                                                                                     <i class="icofont-paint"></i>
                                                                               </div>
-                                                                              <span
-                                                                                    class="small text-muted project_name fw-bold">
-                                                                                    Social Geek Made </span>
-                                                                              <h6 class="mb-0 fw-bold  fs-6  mb-2">
-                                                                                    UI/UX Design</h6>
+                                                                              <span class="small text-muted project_name fw-bold">Social Geek Made </span>
+                                                                              <h6 class="fw-bold  fs-6  mb-2">UI/UX Design</h6>
                                                                         </div>
                                                                         <div class="btn-group" role="group"
                                                                               aria-label="Basic outlined example">
