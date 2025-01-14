@@ -415,13 +415,9 @@ onBeforeUnmount(() => {
                                                             <InputError class="mt-2" :message="form.errors.employee_first_name" />
                                                       </div>
                                                       <div class="col-sm-6">
-                                                            <InputLabel for="employee_second_name"
-                                                                  value="Second Name" />
-                                                            <TextInput type="text" v-model="form.employee_second_name"
-                                                                  placeholder="Second Name.." id="employee_second_name"
-                                                                  autocomplete="secondName" />
-                                                            <InputError class="mt-2"
-                                                                  :message="form.errors.employee_second_name" />
+                                                            <InputLabel for="employee_second_name" value="Second Name" />
+                                                            <TextInput type="text" v-model="form.employee_second_name" placeholder="Second Name.." id="employee_second_name" autocomplete="secondName" />
+                                                            <InputError class="mt-2" :message="form.errors.employee_second_name" />
                                                       </div>
                                                 </div>
                                                 <div class="row g-3 mb-3">

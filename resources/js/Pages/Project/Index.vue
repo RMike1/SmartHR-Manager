@@ -353,11 +353,8 @@ const editProjectModal = (project) => {
                                                                               <div class="project-block light-info-bg">
                                                                                     <i class="icofont-paint"></i>
                                                                               </div>
-                                                                              <span
-                                                                                    class="small text-muted project_name fw-bold">
-                                                                                    Software Chasers </span>
-                                                                              <h6 class="mb-0 fw-bold  fs-6  mb-2">
-                                                                                    UI/UX Design</h6>
+                                                                              <span class="small text-muted project_name fw-bold">Software Chasers </span>
+                                                                              <h6 class="fw-bold  fs-6  mb-2">UI/UX Design</h6>
                                                                         </div>
                                                                         <div class="btn-group" role="group"
                                                                               aria-label="Basic outlined example">
@@ -611,7 +608,7 @@ const editProjectModal = (project) => {
                                           <div class="mb-3">
                                                 <InputLabel for="project-image" value="Image/Document"/>
                                                 <TextInput type="file" @input="change" id="project-image"/>
-                                                <img :src="form.preview ?? form.preview" width="80" height="auto" alt="">
+                                                <img  :src="form.preview ?? form.preview" style="width: 50px; height: auto;"/>
                                                 <img :src="'storage/'+ form.project_image" style="height: auto; width: 50px" :alt="form.employee_first_name"/>
                                                 <InputError class="mt-2" :message="form.errors.project_image"/>
                                           </div>
