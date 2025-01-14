@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import Layout from '@/Layouts/MainLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -20,15 +20,22 @@ const props = defineProps({
       'projects':Array
 });
 const showCreateProjectModal = ref(false);
-// const modalTitle = 
+const editMode = ref(false);
+const modalTitle = computed( () => editMode.value ? 'Edit Project' : 'Create Project' );
+const buttonSubMission = computed( () => editMode.value ? 'Update' : 'Save' );
+const modalSubMission = computed( () => editMode.value ? 'updateProject' : 'storeProject');
+const buttonProcessingSubMission = computed(() =>editMode.value ? 'Updating...' : 'Saving...');
+
 const createProject = () => {
       form.reset();
       form.clearErrors();
+      editMode.value=false;
       showCreateProjectModal.value = true;
 }
 
 const editProjectModal = (project) => {
       showCreateProjectModal.value = true;
+      editMode.value=true;
       form.project_name=project.project_name;
       form.category_id=project.category_id;
       form.project_budget=project.project_budget;
@@ -78,6 +85,15 @@ const change = (e) =>{
 }
 const storeProject = () => {
       form.post(route('project.store'),{
+            onSuccess : () => {
+                  form.reset();
+                  closeModal();
+                  form.preview=null
+            }
+      });
+}
+const updateProject = () =>{
+      form.put((route('project.update', form.id)),{
             onSuccess : () => {
                   form.reset();
                   closeModal();
@@ -581,7 +597,7 @@ const storeProject = () => {
       </div>
 
       <!-- Create Project-->
-      <form @submit.prevent="storeProject">
+      <form @submit.prevent="modalSubMission">
             <transition name="slide-down">
                   <div class="modal fade" tabindex="-1" v-if="showCreateProjectModal" @click.self.prevent="closeModal"
                         :class="{ show: showCreateProjectModal }"
@@ -589,7 +605,7 @@ const storeProject = () => {
                         <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
                               <div class="modal-content">
                                     <div class="modal-header">
-                                          <h5 class="modal-title  fw-bold" id="createprojectlLabel"> Create Project</h5>
+                                          <h5 class="modal-title  fw-bold" id="createprojectlLabel">{{ modalTitle }}</h5>
 
                                           <button type="button" class="btn-close" @click="closeModal"></button>
                                     </div>
@@ -670,8 +686,8 @@ const storeProject = () => {
                                     <div class="modal-footer">
                                           <SecondaryButton  @click="closeModal">Done</SecondaryButton>
                                           <PrimaryButton class="btn btn-primary" :disabled="form.processing" :class="{'opacity-25': form.processing }">
-                                                <span v-if="form.processing">Saving...</span>
-                                                <span v-else>Save</span>
+                                                <span v-if="form.processing">{{buttonProcessingSubMission}}</span>
+                                                <span v-else>{{buttonSubMission}}</span>
                                           </PrimaryButton>
                                     </div>
                               </div>
