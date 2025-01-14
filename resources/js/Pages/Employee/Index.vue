@@ -126,8 +126,7 @@ onBeforeUnmount(() => {
                   <div class="row clearfix">
                         <div class="col-md-12">
                               <div class="card border-0 mb-4 no-bg">
-                                    <div
-                                          class="card-header py-3 px-0 d-sm-flex align-items-center  justify-content-between border-bottom">
+                                    <div class="card-header py-3 px-0 d-sm-flex align-items-center  justify-content-between border-bottom">
                                           <h3 class=" fw-bold flex-fill mb-0 mt-sm-0">Employee</h3>
 
                                           <button class="btn btn-dark me-1 mt-1 w-sm-100" @click.prevent="openModal">
