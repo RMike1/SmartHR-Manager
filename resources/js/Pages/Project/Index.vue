@@ -20,11 +20,28 @@ const props = defineProps({
       'projects':Array
 });
 const showCreateProjectModal = ref(false);
+// const modalTitle = 
 const createProject = () => {
       form.reset();
       form.clearErrors();
       showCreateProjectModal.value = true;
 }
+
+const editProjectModal = (project) => {
+      showCreateProjectModal.value = true;
+      form.project_name=project.project_name;
+      form.category_id=project.category_id;
+      form.project_budget=project.project_budget;
+      form.notification=project.notification;
+      form.project_priority=project.project_priority;
+      form.project_description=project.project_description;
+      form.employee_id=project.employee_id;
+      form.project_image=project.project_image;
+      form.start_date=project.start_date;
+      form.end_date=project.end_date;
+}
+
+
 const closeModal = () => {
       showCreateProjectModal.value = false;
 }
@@ -67,20 +84,6 @@ const storeProject = () => {
                   form.preview=null
             }
       });
-}
-
-const editProjectModal = (project) => {
-      showCreateProjectModal.value = true;
-      form.project_name=project.project_name;
-      form.category_id=project.category_id;
-      form.project_budget=project.project_budget;
-      form.notification=project.notification;
-      form.project_priority=project.project_priority;
-      form.project_description=project.project_description;
-      form.employee_id=project.employee_id;
-      form.project_image=project.project_image;
-      form.start_date=project.start_date;
-      form.end_date=project.end_date;
 }
 </script>
 <template>

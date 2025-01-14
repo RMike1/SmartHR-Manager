@@ -41,9 +41,11 @@ const modalSubMission = computed(() => (editMode.value === 'create' ? 'submit' :
 const buttonSubMission = computed(() => (editMode.value === 'create' ? 'Save' : 'Update'));
 const buttonProcessingSubMission = computed(() => (editMode.value === 'create' ? 'Saving...' : 'Updating...'));
 const selectedEmployee = ref(null);
-const openModal = (employee) => {
+const openModal = (index) => {
       form.clearErrors();
       form.preview=null;
+      const employee = props.employees[index];
+
       if (employee) {
             editMode.value = 'edit';
             showModal.value = true;
@@ -196,7 +198,7 @@ onBeforeUnmount(() => {
                                                       Profile</a>
                                           </div>
                                           <div>
-                                                <button @click.prevent="openModal(employee)" type="button"
+                                                <button @click.prevent="openModal(index)" type="button"
                                                       class="btn btn-dark me-1 btn-sm mt-1" title="Edit Employee">
                                                       <i class="icofont-edit fs-6"></i></button>
                                                 <button @click="deleteEmp(employee.id)" type="button"
