@@ -1,5 +1,5 @@
 import './bootstrap';
-// import '../css/app.css';
+import '../css/app.css';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
@@ -8,7 +8,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import { modal } from "momentum-modal";
 
 
-const appName = import.meta.env.VITE_APP_NAME || 'Dash2';
+const appName = import.meta.env.VITE_APP_NAME || 'Smart Hr';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

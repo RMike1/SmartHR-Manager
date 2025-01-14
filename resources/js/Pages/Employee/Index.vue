@@ -44,7 +44,6 @@ const selectedEmployee = ref(null);
 const openModal = (employee) => {
       form.clearErrors();
       form.preview=null;
-      
       if (employee) {
             editMode.value = 'edit';
             showModal.value = true;
